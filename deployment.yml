@@ -20,7 +20,7 @@ spec:
         - env:
             - name: TZ
               value: Asia/Shanghai
-          image: gitlab.xx.com/dev/cloudpods-webhook:v0.1-67bac4bc
+          image: home.mrlch.cn:8888/dev/cloudpods-webhook:v0.1-67bac4bc
           imagePullPolicy: Always
           name: cloudpods-webhook
           ports:

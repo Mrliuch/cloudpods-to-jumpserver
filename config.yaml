@@ -6,7 +6,10 @@ redis:
   port: 6379
 
 jumpserver:
-  address: "https://xx.xx.xx"
+  address: "https://jxxx.cn"
   AccessKeyID: "AccessKeyID"
   AccessKeySecret: "AccessKeySecret"
   node_id: "05fba763-071d-4b18-ad7e-1b16fa504ad8"
+  linuxPlatform: "1"
+  winPlatform: "5"
+  ssh_port: 22

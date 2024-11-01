@@ -37,7 +37,7 @@ func genHostInfo(details common.ResourceDetails) *common.Asset {
 		ID:       details.HostID,
 		Name:     details.Name,
 		Address:  details.IPS,
-		Platform: "1",
+		Platform: "2",
 		Protocols: []common.Protocol{
 			{
 				Name: "ssh",
@@ -59,6 +59,38 @@ func genHostInfo(details common.ResourceDetails) *common.Asset {
 				SecretType: "password",
 			},
 		},
+	}
+	switch details.OSType {
+	case "l24", "l26", "solaris":
+		host.Platform = viper.GetString("jumpserver.linuxPlatform")
+		host.Protocols = []common.Protocol{
+			{
+				Name: "ssh",
+				Port: 22,
+			}, {
+				Name: "sftp",
+				Port: 22,
+			},
+		}
+	case "wxp", "w2k", "w2k3", "w2k8", "wvista", "win7", "win8", "win10", "win11":
+		host.Platform = viper.GetString("jumpserver.winPlatform")
+		host.Protocols = []common.Protocol{
+			{
+				Name: "rdp",
+				Port: 3389,
+			},
+		}
+	default:
+		host.Platform = viper.GetString("jumpserver.linuxPlatform")
+		host.Protocols = []common.Protocol{
+			{
+				Name: "ssh",
+				Port: 22,
+			}, {
+				Name: "sftp",
+				Port: 22,
+			},
+		}
 	}
 	return host
 }

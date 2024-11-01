@@ -52,7 +52,7 @@ func (n *Notices) DeleteVM() error {
 	}
 	n.Notices.ResourceDetails.JMPID = jmpID
 	logrus.Infof("删除虚拟机资源ID：%s", n.Notices.ResourceDetails.HostID)
-	err = jumpserver.DeleteVM(n.Notices.ResourceDetails)
+	err = jumpserver.DeleteVM(jmpID)
 	if err != nil {
 		logrus.Errorf("删除虚拟机失败：%s", err.Error())
 	}
