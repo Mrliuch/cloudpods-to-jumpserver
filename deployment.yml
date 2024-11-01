@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: cloudpods-webhook
+    k8slens-edit-resource-version: v1
+  name: cloudpods-webhook
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cloudpods-webhook
+  template:
+    metadata:
+      labels:
+        io.kompose.service: cloudpods-webhook
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Asia/Shanghai
+          image: gitlab.xx.com/dev/cloudpods-webhook:v0.1-67bac4bc
+          imagePullPolicy: Always
+          name: cloudpods-webhook
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - name: cloudpods-webhook-config
+              mountPath: /cloudpods-webhook/config.yaml
+              subPath: config.yaml
+      volumes:
+        - name: cloudpods-webhook-config
+          configMap:
+            name: cloudpods-webhook-config
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: cloudpods-webhook
+    k8slens-edit-resource-version: v1
+  name: cloudpods-webhook
+  namespace: app
+spec:
+  ports:
+    - name: "8080"
+      nodePort: 30701
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    io.kompose.service: cloudpods-webhook
+  type: NodePort

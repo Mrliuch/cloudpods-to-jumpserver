@@ -1,0 +1,8 @@
+files/*
+!files/.gitkeep
+venv
+.DS_Store
+.idea
+__pycache__
+*.png
+*.log

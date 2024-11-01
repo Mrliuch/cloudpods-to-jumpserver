@@ -1,0 +1,25 @@
+variables:
+
+  REPO_NAME: cloudpods-webhook
+
+stages:
+  - build_image
+  - cd
+
+
+
+build_image:
+  stage: build_image
+  script:
+    - docker login -u $HARBOR_USERNAME -p $HARBOR_PASSWORD gitlab.xx.com
+    - docker build -t gitlab.xx.com/dev/cloudpods-webhook:v0.1-$CI_COMMIT_SHORT_SHA .
+    - docker push gitlab.xx.com/dev/cloudpods-webhook:v0.1-$CI_COMMIT_SHORT_SHA
+    - docker rmi -f gitlab.xx.com/dev/cloudpods-webhook:v0.1-$CI_COMMIT_SHORT_SHA
+
+cd:
+  stage: cd
+  script:
+    - kubectl set image -n app deploy cloudpods-webhook *=gitlab.xx.com/dev/cloudpods-webhook:v0.1-$CI_COMMIT_SHORT_SHA
+  tags:
+    - mrlch
+

@@ -1,0 +1,12 @@
+api_port: 8080
+
+# redis用来存储虚拟机ID和IP的对应关系
+redis:
+  host: 192.168.10.233
+  port: 6379
+
+jumpserver:
+  address: "https://xx.xx.xx"
+  AccessKeyID: "AccessKeyID"
+  AccessKeySecret: "AccessKeySecret"
+  node_id: "05fba763-071d-4b18-ad7e-1b16fa504ad8"
