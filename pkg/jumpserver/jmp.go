@@ -72,7 +72,7 @@ func genHostInfo(details common.ResourceDetails) *common.Asset {
 				Port: 22,
 			},
 		}
-	case "wxp", "w2k", "w2k3", "w2k8", "wvista", "win7", "win8", "win10", "win11":
+	case "wxp", "w2k", "w2k3", "w2k8", "wvista", "win7", "win8", "win10", "win11", "":
 		host.Platform = viper.GetString("jumpserver.winPlatform")
 		host.Protocols = []common.Protocol{
 			{
